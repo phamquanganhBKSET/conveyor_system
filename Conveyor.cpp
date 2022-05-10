@@ -6,6 +6,12 @@
 
 using namespace std;
 
+typedef struct
+{
+  Worker* worker;
+  Sensor* sensor;
+} thread_args;
+
 Conveyor::Conveyor() {
   this->speed = SPEED;
   this->stop = false;
@@ -21,16 +27,16 @@ void* Conveyor::workerRun(void* args) {
   do {
 
     here:
-    if (thread_arg->sensor->workerStatus == NONE)
+    if (thread_arg->sensor->getWorkerStatus() == NONE)
     {
 
       here1:
-      if (thread_arg->sensor->componentType == TYPE_A)
+      if (thread_arg->sensor->getComponentType() == TYPE_A)
       {
         thread_arg->worker->leftPickUp();
 
         here2:
-        if (thread_arg->sensor->componentType == TYPE_B)
+        if (thread_arg->sensor->getComponentType() == TYPE_B)
         {
           thread_arg->worker->rightPickUp();
           thread_arg->worker->assembleProduct();
@@ -41,12 +47,12 @@ void* Conveyor::workerRun(void* args) {
           goto here2;
         }
       }
-      else if (thread_arg->sensor->componentType == TYPE_B)
+      else if (thread_arg->sensor->getComponentType() == TYPE_B)
       {
         thread_arg->worker->leftPickUp();
 
         here3:
-        if (thread_arg->sensor->componentType == TYPE_A)
+        if (thread_arg->sensor->getComponentType() == TYPE_A)
         {
           thread_arg->worker->rightPickUp();
           thread_arg->worker->assembleProduct();
@@ -66,7 +72,7 @@ void* Conveyor::workerRun(void* args) {
     {
       goto here;
     }
-  } while(this->stop != true)
+  } while(stop != true);
 
   pthread_exit(NULL);
 }
@@ -78,8 +84,8 @@ void Conveyor::run() {
 
   for (int i = 0; i < NUMBER_WORKERS; i++)
   {
-    thr[i]->worker = &this->worker[i];
-    thr[i]->sensor = &this->sensor[i];
+    thr[i].worker = &this->worker[i];
+    thr[i].sensor = &this->sensor[i];
   }
 
   for (int i = 0; i < NUMBER_WORKERS; i++)
@@ -98,10 +104,10 @@ void Conveyor::run() {
 
 };
 
-void Conveyor::stop() {
-  this->stop = true;
+void Conveyor::stopOp() {
+  stop = true;
 }
 
-void Conveyor::getStop() {
+bool Conveyor::getStop() {
   return this->stop;
 }

@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include "Sensor.h"
 
+using namespace std;
+
 Sensor::Sensor() {
   this->workerStatus = NONE;
-  this->componentType = NONE;
+  this->componentType = BLANK;
 };
 
 Sensor::~Sensor() {
@@ -28,7 +30,7 @@ void Sensor::setComponentType(TYPE componentType) {
 };
 
 void Sensor::checkWorkerStatus() {
-  cout << "\nReading worker status..."
+  cout << "\nReading worker status...";
   // Đọc giá trị cảm biến cho workerStatus ở đây và trả kết quả vào biến workerStatus
 
 
@@ -57,7 +59,7 @@ void Sensor::checkWorkerStatus() {
 };
 
 void Sensor::chekComponentType() {
-  cout << "\nChecking type of component..."
+  cout << "\nChecking type of component...";
   // Đọc giá trị cảm biến cho componentType ở đây
 
 

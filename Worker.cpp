@@ -13,7 +13,7 @@ Worker::Worker() {
 	numberProduct = 0;
 }
 
-Worker::~Worker {
+Worker::~Worker() {
 
 }
 
@@ -34,15 +34,15 @@ bool Worker::getAssemble() {
 };
 
 int Worker::getNumberProduct() {
-	return this->numberProduct;
+	return numberProduct;
 };
 
 void Worker::increaseNumberProduct() {
-	this->numberProduct++;
+	numberProduct++;
 };
 
 void Worker::setNumberProduct(bool numberProduct) {
-	this->numberProduct = numberProduct;
+	numberProduct = numberProduct;
 };
 
 void Worker::setWait(bool wait) {
@@ -50,11 +50,11 @@ void Worker::setWait(bool wait) {
 };
 
 void Worker::setRightPick(bool rightPick) {
-	this->pick = pick;
+	this->rightPick = rightPick;
 };
 
 void Worker::setLeftPick(bool leftPick) {
-	this->pick = pick;
+	this->leftPick = leftPick;
 };
 
 void Worker::setAssemble(bool assemble) {

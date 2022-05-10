@@ -10,21 +10,15 @@
 #define NUMBER_WORKERS   10   // Number of workers
 
 enum STATUS {
-  COMPONENT_A = 1;
-  COMPONENT_B = 2;
-  NONE = 0;
-}
+  COMPONENT_A = 1,
+  COMPONENT_B = 2,
+  NONE = 0
+};
 
 enum TYPE {
-  TYPE_A = 1;
-  TYPE_B = 2;
-  NONE = 0;
-}
-
-typedef struct
-{
-  Worker* worker;
-  Sensor* sensor;
-} thread_args;
+  TYPE_A = 1,
+  TYPE_B = 2,
+  BLANK = 0
+};
 
 #endif

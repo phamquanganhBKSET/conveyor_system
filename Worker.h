@@ -35,7 +35,9 @@ public:
 
 	void setWait(bool wait);
 
-	void setPick(bool pick);
+	void setRightPick(bool rightPick);
+
+	void setLeftPick(bool leftPick);
 
 	void setAssemble(bool assemble);
 
