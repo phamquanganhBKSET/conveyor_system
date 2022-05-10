@@ -8,11 +8,12 @@
 class Conveyor {
 private:
   int speed; // Number of components that are sent to the conveyor per second
-  static bool stop;
   Worker worker[NUMBER_WORKERS];
   Sensor sensor[NUMBER_WORKERS];
 
 public:
+  static bool stop;
+
   Conveyor();
 
   ~Conveyor();
@@ -24,10 +25,6 @@ public:
   void setSensor(Sensor* sensor);
 
   void run();
-
-  void stopOp();
-
-  bool getStop();
 };
 
 #endif

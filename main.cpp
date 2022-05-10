@@ -32,7 +32,7 @@ string toString(TYPE component) {
     }
 
     case BLANK: {
-      return "  ";
+      return " ";
     }
   }
   return " ";
@@ -48,16 +48,18 @@ int main(int argc, char const *argv[])
 
   for (int i = 0; i < 20; i++)
   {
-    TYPE component = (TYPE)random(0, 1);
+    TYPE component = (TYPE)random(0, 2);
     shiftRight(components, NUMBER_SLOTS, component);
     sleep(1.0/SPEED);
-    cout << "\nConveyor: " << endl;
+    cout << "\n\nConveyor: " << endl;
+    cout << "|";
     for (int i = 0; i < NUMBER_SLOTS; i++)
     {
-      cout << "|" << toString(components[i]) << "|";
+      cout << toString(components[i]) << "|";
     }
-  }
 
+  }
+  cout << endl;
 
 
   return 0;

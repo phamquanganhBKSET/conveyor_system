@@ -11,9 +11,9 @@ private:
 	bool rightPick;
 	bool leftPick;
 	bool assemble;
-	static int numberProduct;
 
 public:
+	static int numberProduct;
 
 	Worker();
 
@@ -26,12 +26,6 @@ public:
 	bool getLeftPick();
 
 	bool getAssemble();
-
-	static int getNumberProduct();
-
-	static void increaseNumberProduct();
-
-	static void setNumberProduct(bool numberProduct);
 
 	void setWait(bool wait);
 

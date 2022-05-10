@@ -6,6 +6,8 @@
 
 using namespace std;
 
+bool Conveyor::stop;
+
 typedef struct
 {
   Worker* worker;
@@ -13,8 +15,7 @@ typedef struct
 } thread_args;
 
 Conveyor::Conveyor() {
-  this->speed = SPEED;
-  this->stop = false;
+  speed = SPEED;
 }
 
 Conveyor::~Conveyor() {
@@ -72,7 +73,7 @@ void* Conveyor::workerRun(void* args) {
     {
       goto here;
     }
-  } while(stop != true);
+  } while(Conveyor::stop != true);
 
   pthread_exit(NULL);
 }
@@ -80,6 +81,7 @@ void* Conveyor::workerRun(void* args) {
 void Conveyor::run() {
   // Create n threads for n workers
   pthread_t tid[NUMBER_WORKERS];
+
   thread_args thr[NUMBER_WORKERS];
 
   for (int i = 0; i < NUMBER_WORKERS; i++)
@@ -103,11 +105,3 @@ void Conveyor::run() {
   }
 
 };
-
-void Conveyor::stopOp() {
-  stop = true;
-}
-
-bool Conveyor::getStop() {
-  return this->stop;
-}

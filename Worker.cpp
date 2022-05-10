@@ -5,12 +5,13 @@
 
 using namespace std;
 
+int Worker::numberProduct;
+
 Worker::Worker() {
 	wait = false;
 	rightPick = false;
 	leftPick = false;
 	assemble = false;
-	numberProduct = 0;
 }
 
 Worker::~Worker() {
@@ -31,18 +32,6 @@ bool Worker::getLeftPick() {
 
 bool Worker::getAssemble() {
 	return this->assemble;
-};
-
-int Worker::getNumberProduct() {
-	return numberProduct;
-};
-
-void Worker::increaseNumberProduct() {
-	numberProduct++;
-};
-
-void Worker::setNumberProduct(bool numberProduct) {
-	numberProduct = numberProduct;
 };
 
 void Worker::setWait(bool wait) {
@@ -102,7 +91,7 @@ void Worker::assembleProduct() {
 void Worker::returnProduct() {
 	sleep(RETURN_TIME);
 	cout << "\nThe product was returned to the other converor belt!" << endl;
-	increaseNumberProduct();
+	Worker::numberProduct++;
 };
 
 void Worker::alarm() {
