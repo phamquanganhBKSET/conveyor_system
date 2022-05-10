@@ -41,8 +41,8 @@ string toString(TYPE component) {
 int main(int argc, char const *argv[])
 {
   Conveyor conveyor;
-  Sensor sensor;
-  Worker worker;
+  Sensor sensor[NUMBER_WORKERS];
+  Worker worker[NUMBER_WORKERS];
 
   TYPE components[NUMBER_SLOTS];
 
@@ -51,16 +51,35 @@ int main(int argc, char const *argv[])
     TYPE component = (TYPE)random(0, 2);
     shiftRight(components, NUMBER_SLOTS, component);
     sleep(1.0/SPEED);
+
     cout << "\n\nConveyor: " << endl;
-    cout << "|";
+    for (int i = 0; i < NUMBER_WORKERS; ++i)
+    {
+      cout << " v";
+    }
+
+    cout << "\n|";
+
     for (int i = 0; i < NUMBER_SLOTS; i++)
     {
       cout << toString(components[i]) << "|";
     }
 
+    for (int i = 0; i < NUMBER_SLOTS; i++)
+    {
+      sensor[i].setComponentType(components[i]);
+    }
+
+    cout << endl;
+    for (int i = 0; i < NUMBER_WORKERS; ++i)
+    {
+      cout << " ^";
+    }
+
+    conveyor.setSensor(sensor);
   }
   cout << endl;
-
+  Conveyor::stop = true;
 
   return 0;
 }

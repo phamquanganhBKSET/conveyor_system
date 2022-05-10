@@ -86,3 +86,8 @@ void Sensor::chekComponentType() {
     }
   }
 };
+
+void Sensor::copy(Sensor sensor) {
+  this->workerStatus = sensor.workerStatus;
+  this->componentType = sensor.componentType;
+}

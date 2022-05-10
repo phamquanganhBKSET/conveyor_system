@@ -46,6 +46,8 @@ public:
 	void returnProduct();
 
 	void alarm();
+
+	void copy(Worker worker);
 };
 
 #endif

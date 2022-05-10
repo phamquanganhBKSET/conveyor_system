@@ -106,3 +106,10 @@ void Worker::alarm() {
 
 	
 }
+
+void Worker::copy(Worker worker) {
+	this->wait = worker.wait;
+	this->rightPick = worker.rightPick;
+	this->leftPick = worker.leftPick;
+	this->assemble = worker.assemble;
+}

@@ -25,6 +25,8 @@ public:
   void checkWorkerStatus();
 
   void chekComponentType();
+
+  void copy(Sensor sensor);
 };
 
 #endif

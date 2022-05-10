@@ -22,7 +22,11 @@ public:
 
   void setWorker(Worker* worker);
 
+  Worker* getWorker();
+
   void setSensor(Sensor* sensor);
+
+  Sensor* getSensor();
 
   void run();
 };

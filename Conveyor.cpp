@@ -105,3 +105,25 @@ void Conveyor::run() {
   }
 
 };
+
+Worker* Conveyor::getWorker() {
+  return this->worker;
+}
+
+Sensor* Conveyor::getSensor() {
+  return this->sensor;
+}
+
+void Conveyor::setWorker(Worker* worker) {
+  for (int i = 0; i < NUMBER_WORKERS; i++)
+  {
+    this->worker[i].copy(worker[i]);
+  }
+}
+
+void Conveyor::setSensor(Sensor* sensor) {
+  for (int i = 0; i < NUMBER_WORKERS; i++)
+  {
+    this->sensor[i].copy(sensor[i]);
+  }
+}
