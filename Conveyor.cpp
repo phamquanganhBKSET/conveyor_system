@@ -47,15 +47,15 @@ void* Conveyor::genComponent(void* args) {
     TYPE component = (TYPE)random(0, 2);
     shiftRight(components, NUMBER_SLOTS, component);
 
-    cout << "\n\n==============Conveyor status==============: " << endl;
-    cout << "\nWorker: ";
+    cout << "\n\n|==============|Conveyor status|==============|" << endl;
+    cout << "\n|Worker| ";
     for (int i = 0; i < NUMBER_WORKERS; i++)
     {
       cout << " " << i;
     }
 
-    cout << "\nLeft:   =====================";
-    cout << "\n        |";
+    cout << "\n|Left  | =====================";
+    cout << "\n         |";
 
     for (int i = 0; i < NUMBER_SLOTS; i++)
     {
@@ -63,13 +63,14 @@ void* Conveyor::genComponent(void* args) {
     }
 
     cout << endl;
-    cout << "Right:  =====================" << endl;
-    cout << "Worker: ";
+    cout << "|Right | =====================" << endl;
+    cout << "|Worker| ";
     for (int i = 0; i < NUMBER_WORKERS; ++i)
     {
       cout << " " << i;
     }
     cout << endl;
+    cout << "\n|===|NUMBER OF PRODUCTS: " << Worker::numberProduct << "|===|" << endl;
     updateSensorData();
     sleep(1.0/SPEED);
   }
@@ -134,6 +135,7 @@ void* Conveyor::workerRun(void* args) {
       goto main_branch;
     }
   } while(Conveyor::stop != true);
+  cout << "\n|===|NUMBER OF PRODUCTS: " << Worker::numberProduct << "|===|" << endl;
 
   pthread_exit(NULL);
 }
