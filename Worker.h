@@ -35,15 +35,11 @@ public:
 
 	void setAssemble(bool assemble);
 
-	void waitComponent();
+	void rightPickUp(int i, TYPE* components);
 
-	void rightPickUp();
+	void leftPickUp(int i, TYPE* components);
 
-	void leftPickUp();
-
-	void assembleProduct();
-
-	void returnProduct();
+	void assembleProduct(int i);
 
 	void alarm();
 

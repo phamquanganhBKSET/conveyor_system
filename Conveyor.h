@@ -4,15 +4,20 @@
 #include "GlobalConstant.h"
 #include "Worker.h"
 #include "Sensor.h"
+#include "Functions.h"
 
 class Conveyor {
 private:
   int speed; // Number of components that are sent to the conveyor per second
-  Worker worker[NUMBER_WORKERS];
-  Sensor sensor[NUMBER_WORKERS];
 
 public:
   static bool stop;
+
+  static TYPE components[NUMBER_SLOTS];
+
+  static Sensor sensor[NUMBER_WORKERS];
+
+  static Worker worker[NUMBER_WORKERS];
 
   Conveyor();
 
@@ -20,13 +25,11 @@ public:
 
   static void *workerRun(void* args);
 
-  void setWorker(Worker* worker);
+  //void genComponent(Conveyor* conveyor, TYPE* components);
 
-  Worker* getWorker();
+  static void* genComponent(void* components);
 
-  void setSensor(Sensor* sensor);
-
-  Sensor* getSensor();
+  static void updateSensorData();
 
   void run();
 };

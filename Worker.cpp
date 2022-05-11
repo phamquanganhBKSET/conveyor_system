@@ -50,9 +50,10 @@ void Worker::setAssemble(bool assemble) {
 	this->assemble = assemble;
 };
 
-void Worker::rightPickUp() {
+void Worker::rightPickUp(int i, TYPE* components) {
 	this->rightPick = true;
-	cout << "\nRight arm is picking up the component..." << endl;
+	components[i] = BLANK;
+	printf("\nWorker %d: Right arm is picking up the component...\n", i);
 
 	// Trả giá trị cho 1 chân GPIO ở đây báo hiệu cho cánh tay phải gắp
 
@@ -60,12 +61,13 @@ void Worker::rightPickUp() {
 
 
 	sleep(PICK_TIME);
-	cout << "Done pick up!" << endl;
+	printf("\nWorker %d: Right arm done pick up\n", i);
 };
 
-void Worker::leftPickUp() {
+void Worker::leftPickUp(int i, TYPE* components) {
 	this->leftPick = true;
-	cout << "\nLeft arm is picking up the component..." << endl;
+	components[i] = BLANK;
+	printf("\nWorker %d: Left arm is picking up the component...\n", i);
 
 	// Trả giá trị cho 1 chân GPIO ở đây báo hiệu cho cánh tay trái gắp
 
@@ -73,12 +75,12 @@ void Worker::leftPickUp() {
 
 
 	sleep(PICK_TIME);
-	cout << "Done pick up!" << endl;
+	printf("\nWorker %d: Left arm done pick up\n", i);
 };
 
-void Worker::assembleProduct() {
+void Worker::assembleProduct(int i) {
 	this->assemble = true;
-	cout << "\nWorker is assemblling the product..." << endl;
+	printf("\nWorker %d: Assembling product...\n", i);
 
 	// Trả tín hiệu cho 2 chân GPIO ở đây báo hiệu cho 2 cánh tay lắp sản phẩm
 
@@ -86,11 +88,9 @@ void Worker::assembleProduct() {
 
 
 	sleep(ASSEMBLE_TIME);
-};
-
-void Worker::returnProduct() {
+	printf("\nWorker %d: Done assemble product\n", i);
 	sleep(RETURN_TIME);
-	cout << "\nThe product was returned to the other converor belt!" << endl;
+	printf("\nWorker %d: The product was returned to the other converor belt!\n", i);
 	Worker::numberProduct++;
 };
 
