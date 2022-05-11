@@ -22,7 +22,7 @@ Conveyor.o: Conveyor.h Sensor.h Worker.h GlobalConstant.h Functions.h
 Sensor.o: Sensor.h GlobalConstant.h
 	$(CC) $(CFLAGS) -pthread -o Sensor.o -c Sensor.cpp
 
-Worker.o: Worker.h Sensor.h GlobalConstant.h
+Worker.o: Worker.h Sensor.h GlobalConstant.h Functions.h
 	$(CC) $(CFLAGS) -pthread -o Worker.o -c Worker.cpp
 
 Functions.o: GlobalConstant.h Conveyor.h Functions.h

@@ -7,7 +7,7 @@
 #define ASSEMBLE_TIME    2    // Assemble time (seconds)
 #define PICK_TIME        1    // Pick up time (seconds)
 #define RETURN_TIME      1    // Return product time
-#define NUMBER_WORKERS   3    // Number of workers
+#define NUMBER_WORKERS   3   // Number of workers
 
 enum STATUS {
   COMPONENT_A = 1,

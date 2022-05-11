@@ -2,6 +2,7 @@
 #define WORKER_H
 
 #include "GlobalConstant.h"
+#include "Functions.h"
 #include "Sensor.h"
 
 class Worker {
@@ -35,9 +36,9 @@ public:
 
 	void setAssemble(bool assemble);
 
-	void rightPickUp(int i, TYPE* components);
+	void rightPickUp(int i, TYPE* components, TYPE component);
 
-	void leftPickUp(int i, TYPE* components);
+	void leftPickUp(int i, TYPE* components, TYPE component);
 
 	void assembleProduct(int i);
 

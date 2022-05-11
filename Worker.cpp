@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdlib.h>
+#include <string>
 #include <unistd.h>
 #include "Worker.h"
 
@@ -50,10 +51,10 @@ void Worker::setAssemble(bool assemble) {
 	this->assemble = assemble;
 };
 
-void Worker::rightPickUp(int i, TYPE* components) {
+void Worker::rightPickUp(int i, TYPE* components, TYPE component) {
 	this->rightPick = true;
 	components[i] = BLANK;
-	printf("\nWorker %d: Right arm is picking up the component...\n", i);
+	printf("\nWorker %d: Right arm is picking up component %s\n", i, toString(component).c_str());
 
 	// Trả giá trị cho 1 chân GPIO ở đây báo hiệu cho cánh tay phải gắp
 
@@ -64,10 +65,10 @@ void Worker::rightPickUp(int i, TYPE* components) {
 	printf("\nWorker %d: Right arm done pick up\n", i);
 };
 
-void Worker::leftPickUp(int i, TYPE* components) {
+void Worker::leftPickUp(int i, TYPE* components, TYPE component) {
 	this->leftPick = true;
 	components[i] = BLANK;
-	printf("\nWorker %d: Left arm is picking up the component...\n", i);
+	printf("\nWorker %d: Left arm is picking up component %s\n", i, toString(component).c_str());
 
 	// Trả giá trị cho 1 chân GPIO ở đây báo hiệu cho cánh tay trái gắp
 

@@ -47,15 +47,15 @@ void* Conveyor::genComponent(void* args) {
     TYPE component = (TYPE)random(0, 2);
     shiftRight(components, NUMBER_SLOTS, component);
 
-    cout << "\n\nConveyor: " << endl;
-    cout << "\n       ";
+    cout << "\n\n==============Conveyor status==============: " << endl;
+    cout << "\nWorker: ";
     for (int i = 0; i < NUMBER_WORKERS; i++)
     {
-      cout << " v";
+      cout << " " << i;
     }
 
-    cout << "\nLeft:  =====================";
-    cout << "\n       |";
+    cout << "\nLeft:   =====================";
+    cout << "\n        |";
 
     for (int i = 0; i < NUMBER_SLOTS; i++)
     {
@@ -63,17 +63,18 @@ void* Conveyor::genComponent(void* args) {
     }
 
     cout << endl;
-    cout << "Right: =====================" << endl;
-    cout << "       ";
+    cout << "Right:  =====================" << endl;
+    cout << "Worker: ";
     for (int i = 0; i < NUMBER_WORKERS; ++i)
     {
-      cout << " ^";
+      cout << " " << i;
     }
+    cout << endl;
     updateSensorData();
     sleep(1.0/SPEED);
   }
 
-  cout << endl;
+  cout << endl << endl;
   Conveyor::stop = true;
 
   pthread_exit(NULL);
@@ -86,57 +87,51 @@ void* Conveyor::workerRun(void* args) {
 
   do {
 
-    here:
+    main_branch:
     if (thread_arg->sensor->getWorkerStatus() == NONE)
     {
 
-      here1:
+      branch0:
       if (thread_arg->sensor->getComponentType() == TYPE_A)
       {
-        thread_arg->worker->leftPickUp(iter, Conveyor::components);
-        // Cập nhật lại trạng thái băng chuyền
+        thread_arg->worker->leftPickUp(iter, Conveyor::components, TYPE_A);
 
-        here2:
+        branch1:
         if (thread_arg->sensor->getComponentType() == TYPE_B)
         {
-          thread_arg->worker->rightPickUp(iter, Conveyor::components);
-          // Cập nhật lại trạng thái băng chuyền
+          thread_arg->worker->rightPickUp(iter, Conveyor::components, TYPE_B);
 
           thread_arg->worker->assembleProduct(iter);
-          //thread_arg->worker->returnProduct();
         }
         else
         {
-          goto here2;
+          goto branch1;
         }
       }
       else if (thread_arg->sensor->getComponentType() == TYPE_B)
       {
-        thread_arg->worker->leftPickUp(iter, Conveyor::components);
+        thread_arg->worker->leftPickUp(iter, Conveyor::components, TYPE_B);
 
-        here3:
+        branch2:
         if (thread_arg->sensor->getComponentType() == TYPE_A)
         {
-          thread_arg->worker->rightPickUp(iter, Conveyor::components);
-          // Cập nhật lại trạng thái băng chuyền
-          Conveyor::components[iter] = BLANK;
+          thread_arg->worker->rightPickUp(iter, Conveyor::components, TYPE_A);
 
           thread_arg->worker->assembleProduct(iter);
-          //thread_arg->worker->returnProduct();
         }
         else
         {
-          goto here3;
+          goto branch2;
         }
       }
       else
       {
-        goto here1;
+        goto branch0;
       }
     }
     else
     {
-      goto here;
+      goto main_branch;
     }
   } while(Conveyor::stop != true);
 
