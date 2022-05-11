@@ -12,13 +12,16 @@
 enum STATUS {
   COMPONENT_A = 1,
   COMPONENT_B = 2,
-  NONE = 0
+  NONE        = 0,
+  PRODUCT     = 3,
+  FULL        = 4
 };
 
 enum TYPE {
   TYPE_A = 1,
   TYPE_B = 2,
-  BLANK = 0
+  BLANK  = 0,
+  TYPE_P = 3,
 };
 
 #endif

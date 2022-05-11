@@ -62,10 +62,10 @@ void Worker::rightPickUp(int i, TYPE* components, TYPE component) {
 
 
 	sleep(PICK_TIME);
-	printf("\nWorker %d: Right arm done pick up\n", i);
+	printf("\nWorker %d: Right arm done pick up component %s\n", i, toString(component).c_str());
 };
 
-void Worker::leftPickUp(int i, TYPE* components, TYPE component) {
+void Worker::leftPickUp(int i, TYPE* components, Worker* worker, TYPE component) {
 	this->leftPick = true;
 	components[i] = BLANK;
 	printf("\nWorker %d: Left arm is picking up component %s\n", i, toString(component).c_str());
@@ -76,10 +76,11 @@ void Worker::leftPickUp(int i, TYPE* components, TYPE component) {
 
 
 	sleep(PICK_TIME);
-	printf("\nWorker %d: Left arm done pick up\n", i);
+	worker[i].setStatus((STATUS) component);
+	printf("\nWorker %d: Left arm done pick up component %s\n", i, toString(component).c_str());
 };
 
-void Worker::assembleProduct(int i) {
+void Worker::assembleProduct(int i, TYPE* components, Worker* worker) {
 	this->assemble = true;
 	printf("\nWorker %d: Assembling product...\n", i);
 
@@ -89,28 +90,33 @@ void Worker::assembleProduct(int i) {
 
 
 	sleep(ASSEMBLE_TIME);
+	worker->setStatus(PRODUCT);
 	printf("\nWorker %d: Done assemble product\n", i);
 	sleep(RETURN_TIME);
-	printf("\nWorker %d: The product was returned to the other converor belt!\n", i);
+	for (int i = 0; i < NUMBER_SLOTS; i++)
+	{
+		if (components[i] == BLANK)
+		{
+			components[i] = TYPE_P;
+			break;
+		}
+	}
+	worker->setStatus(NONE);
+	printf("\nWorker %d: Returning product...\n", i);
 	Worker::numberProduct++;
 };
-
-void Worker::alarm() {
-	// Delay ở đây 
-
-
-
-
-	// Kiểm tra alarm ở đây 
-
-
-
-	
-}
 
 void Worker::copy(Worker worker) {
 	this->wait = worker.wait;
 	this->rightPick = worker.rightPick;
 	this->leftPick = worker.leftPick;
 	this->assemble = worker.assemble;
+}
+
+STATUS Worker::getStatus() {
+	return this->status;
+}
+
+void Worker::setStatus(STATUS status) {
+	this->status = status;
 }

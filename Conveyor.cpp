@@ -48,6 +48,12 @@ void* Conveyor::genComponent(void* args) {
     shiftRight(components, NUMBER_SLOTS, component);
 
     cout << "\n\n|==============|Conveyor status|==============|" << endl;
+    cout << endl;
+    cout << "         ";
+    for (int i = 0; i < NUMBER_WORKERS; i++)
+    {
+      cout << " " << toString(Conveyor::worker[i].getStatus());
+    }
     cout << "\n|Worker| ";
     for (int i = 0; i < NUMBER_WORKERS; i++)
     {
@@ -81,6 +87,19 @@ void* Conveyor::genComponent(void* args) {
   pthread_exit(NULL);
 }
 
+void* alarm(void* args) {
+  // Delay ở đây 
+
+
+
+
+  // Kiểm tra alarm ở đây 
+
+
+
+  
+}
+
 void* Conveyor::workerRun(void* args) {
   thread_args *thread_arg = (thread_args*) args;
 
@@ -95,14 +114,15 @@ void* Conveyor::workerRun(void* args) {
       branch0:
       if (thread_arg->sensor->getComponentType() == TYPE_A)
       {
-        thread_arg->worker->leftPickUp(iter, Conveyor::components, TYPE_A);
+        thread_arg->worker->leftPickUp(iter, Conveyor::components, Conveyor::worker, TYPE_A);
 
         branch1:
         if (thread_arg->sensor->getComponentType() == TYPE_B)
         {
           thread_arg->worker->rightPickUp(iter, Conveyor::components, TYPE_B);
+          Conveyor::worker[iter].setStatus(FULL);
 
-          thread_arg->worker->assembleProduct(iter);
+          thread_arg->worker->assembleProduct(iter, Conveyor::components, thread_arg->worker);
         }
         else
         {
@@ -111,14 +131,15 @@ void* Conveyor::workerRun(void* args) {
       }
       else if (thread_arg->sensor->getComponentType() == TYPE_B)
       {
-        thread_arg->worker->leftPickUp(iter, Conveyor::components, TYPE_B);
+        thread_arg->worker->leftPickUp(iter, Conveyor::components, Conveyor::worker, TYPE_B);
 
         branch2:
         if (thread_arg->sensor->getComponentType() == TYPE_A)
         {
           thread_arg->worker->rightPickUp(iter, Conveyor::components, TYPE_A);
+          Conveyor::worker[iter].setStatus(FULL);
 
-          thread_arg->worker->assembleProduct(iter);
+          thread_arg->worker->assembleProduct(iter, Conveyor::components, thread_arg->worker);
         }
         else
         {
@@ -165,6 +186,7 @@ void Conveyor::run() {
   }
 
   pthread_join(gentid, NULL);
+  
   for (int i = 0; i < NUMBER_WORKERS; i++)
   {
     pthread_join(tid[i], NULL);

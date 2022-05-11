@@ -8,6 +8,7 @@
 class Worker {
 
 private:
+	STATUS status;
 	bool wait;
 	bool rightPick;
 	bool leftPick;
@@ -20,6 +21,8 @@ public:
 
 	~Worker();
 
+	STATUS getStatus();
+
 	bool getWait();
 
 	bool getRightPick();
@@ -27,6 +30,8 @@ public:
 	bool getLeftPick();
 
 	bool getAssemble();
+
+	void setStatus(STATUS status);
 
 	void setWait(bool wait);
 
@@ -38,11 +43,9 @@ public:
 
 	void rightPickUp(int i, TYPE* components, TYPE component);
 
-	void leftPickUp(int i, TYPE* components, TYPE component);
+	void leftPickUp(int i, TYPE* components, Worker* worker, TYPE component);
 
-	void assembleProduct(int i);
-
-	void alarm();
+	void assembleProduct(int i, TYPE* components, Worker* worker);
 
 	void copy(Worker worker);
 };

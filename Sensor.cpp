@@ -55,6 +55,16 @@ void Sensor::checkWorkerStatus() {
       cout << "Worker is not holding any components!" << endl;
       break;
     }
+
+    case PRODUCT: {
+      cout << "Worker is not holding a product!" << endl;
+      break;
+    }
+
+    case FULL: {
+      cout << "Worker is not holding 2 components!" << endl;
+      break;
+    }
   }
 };
 
@@ -82,6 +92,11 @@ void Sensor::chekComponentType() {
 
     case NONE: {
       cout << "NULL slot!" << endl;
+      break;
+    }
+
+    case TYPE_P: {
+      cout << "Product!" << endl;
       break;
     }
   }

@@ -31,6 +31,8 @@ public:
 
   static void updateSensorData();
 
+  static void* alarm(void* args);
+
   void run();
 };
 

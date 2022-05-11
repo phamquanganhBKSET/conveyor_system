@@ -32,6 +32,35 @@ string toString(TYPE component) {
     case BLANK: {
       return " ";
     }
+
+    case TYPE_P: {
+      return "P";
+    }
+  }
+  return " ";
+}
+
+string toString(STATUS status) {
+  switch(status) {
+    case COMPONENT_A: {
+      return "A";
+    }
+
+    case COMPONENT_B: {
+      return "B";
+    }
+
+    case NONE: {
+      return "N";
+    }
+
+    case PRODUCT: {
+      return "P";
+    }
+
+    case FULL: {
+      return "2";
+    }
   }
   return " ";
 }

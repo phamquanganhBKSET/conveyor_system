@@ -11,4 +11,6 @@ void shiftRight(TYPE* components, int slots, TYPE component);
 
 string toString(TYPE component);
 
+string toString(STATUS status);
+
 #endif
