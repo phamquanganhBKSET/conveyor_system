@@ -33,4 +33,4 @@ run:
 	./main
 
 clean:
-	rm -r main main.o Conveyor.o Sensor.o Worker.o
+	rm -r main main.o Conveyor.o Sensor.o Worker.o Functions.o
