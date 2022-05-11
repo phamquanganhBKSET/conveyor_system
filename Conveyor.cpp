@@ -49,7 +49,7 @@ void* Conveyor::genComponent(void* args) {
 
     cout << "\n\n|==============|Conveyor status|==============|" << endl;
     cout << endl;
-    cout << "         ";
+    cout << "\n|Status| ";
     for (int i = 0; i < NUMBER_WORKERS; i++)
     {
       cout << " " << toString(Conveyor::worker[i].getStatus());
