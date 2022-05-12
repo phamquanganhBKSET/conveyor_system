@@ -42,11 +42,11 @@ public:
 
 	void setAssemble(bool assemble);
 
-	void rightPickUp(int i, TYPE* components, TYPE component);
+	void rightPickUp(int i, TYPE* components, TYPE component, uint8_t pout);
 
-	void leftPickUp(int i, TYPE* components, Worker* worker, TYPE component);
+	void leftPickUp(int i, TYPE* components, Worker* worker, TYPE component, uint8_t pout);
 
-	void assembleProduct(int i, TYPE* components, Worker* worker);
+	void assembleProduct(int i, TYPE* components, Worker* worker, uint8_t pout[2]);
 
 	void copy(Worker worker);
 };

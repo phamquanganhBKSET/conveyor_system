@@ -51,13 +51,17 @@ void Worker::setAssemble(bool assemble) {
 	this->assemble = assemble;
 };
 
-void Worker::rightPickUp(int i, TYPE* components, TYPE component) {
+void Worker::rightPickUp(int i, TYPE* components, TYPE component, uint8_t pout) {
 	this->rightPick = true;
 	components[i] = BLANK;
 	printf("\nWorker %d: Right arm is picking up component %s\n", i, toString(component).c_str());
 
-	// Trả giá trị cho 1 chân GPIO ở đây để báo hiệu cho cánh tay phải gắp
+	
 
+	/*
+	* Write GPIO value
+	*/
+	GPIO::GPIOWrite(pout, HIGH);
 
 
 
@@ -65,13 +69,17 @@ void Worker::rightPickUp(int i, TYPE* components, TYPE component) {
 	printf("\nWorker %d: Right arm done pick up component %s\n", i, toString(component).c_str());
 };
 
-void Worker::leftPickUp(int i, TYPE* components, Worker* worker, TYPE component) {
+void Worker::leftPickUp(int i, TYPE* components, Worker* worker, TYPE component, uint8_t pout) {
 	this->leftPick = true;
 	components[i] = BLANK;
 	printf("\nWorker %d: Left arm is picking up component %s\n", i, toString(component).c_str());
 
-	// Trả giá trị cho 1 chân GPIO ở đây để báo hiệu cho cánh tay trái gắp
 
+
+	/*
+	* Write GPIO value
+	*/
+	GPIO::GPIOWrite(pout, HIGH);
 
 
 
@@ -80,18 +88,14 @@ void Worker::leftPickUp(int i, TYPE* components, Worker* worker, TYPE component)
 	printf("\nWorker %d: Left arm done pick up component %s\n", i, toString(component).c_str());
 };
 
-void Worker::assembleProduct(int i, TYPE* components, Worker* worker) {
+void Worker::assembleProduct(int i, TYPE* components, Worker* worker, uint8_t pout[2]) {
 	this->assemble = true;
 	printf("\nWorker %d: Assembling product...\n", i);
-
-	// Trả tín hiệu cho 2 chân GPIO ở đây để báo hiệu cho 2 cánh tay lắp sản phẩm
-
-
-
 
 	sleep(ASSEMBLE_TIME);
 	worker->setStatus(PRODUCT);
 	printf("\nWorker %d: Done assemble product\n", i);
+
 	sleep(RETURN_TIME);
 	for (int i = 0; i < NUMBER_SLOTS; i++)
 	{

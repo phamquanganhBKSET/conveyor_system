@@ -11,6 +11,12 @@ TYPE Conveyor::components[NUMBER_SLOTS];
 Sensor Conveyor::sensor[NUMBER_WORKERS];
 Worker Conveyor::worker[NUMBER_WORKERS];
 
+uint8_t pout[NUMBER_WORKERS][2] = { // list of pin out
+  {7 , 8 }, // left arm and right arm of the first worker
+  {11, 12}, // left arm and right arm of the second worker
+  {15, 16}
+};
+
 typedef struct
 {
   Worker* worker;
@@ -92,7 +98,7 @@ void* Conveyor::alarm(void* args) {
     sleep(60);
     if (Worker::numberProduct < PERFORMANCE)
     {
-      cout << "ALARM!!!!!!!!!!!!!!";
+      cout << "\t\tALARM: TOO BAD PERFORMANCE!!!!!!!!!!!!!!";
     }
   } while(Conveyor::stop != true);
   pthread_exit(NULL);
@@ -101,7 +107,7 @@ void* Conveyor::alarm(void* args) {
 void* Conveyor::workerRun(void* args) {
   thread_args *thread_arg = (thread_args*) args;
 
-  int iter = (int)((thread_arg->worker - &Conveyor::worker[0]));
+  uint8_t iter = (int)((thread_arg->worker - &Conveyor::worker[0]));
 
   do {
 
@@ -112,15 +118,15 @@ void* Conveyor::workerRun(void* args) {
       branch0:
       if (thread_arg->sensor->getComponentType() == TYPE_A)
       {
-        thread_arg->worker->leftPickUp(iter, Conveyor::components, Conveyor::worker, TYPE_A);
+        thread_arg->worker->leftPickUp(iter, Conveyor::components, Conveyor::worker, TYPE_A, pout[iter][0]);
 
         branch1:
         if (thread_arg->sensor->getComponentType() == TYPE_B)
         {
-          thread_arg->worker->rightPickUp(iter, Conveyor::components, TYPE_B);
+          thread_arg->worker->rightPickUp(iter, Conveyor::components, TYPE_B, pout[iter][1]);
           Conveyor::worker[iter].setStatus(FULL);
 
-          thread_arg->worker->assembleProduct(iter, Conveyor::components, thread_arg->worker);
+          thread_arg->worker->assembleProduct(iter, Conveyor::components, thread_arg->worker, pout[iter]);
         }
         else
         {
@@ -129,15 +135,15 @@ void* Conveyor::workerRun(void* args) {
       }
       else if (thread_arg->sensor->getComponentType() == TYPE_B)
       {
-        thread_arg->worker->leftPickUp(iter, Conveyor::components, Conveyor::worker, TYPE_B);
+        thread_arg->worker->leftPickUp(iter, Conveyor::components, Conveyor::worker, TYPE_B, pout[iter][0]);
 
         branch2:
         if (thread_arg->sensor->getComponentType() == TYPE_A)
         {
-          thread_arg->worker->rightPickUp(iter, Conveyor::components, TYPE_A);
+          thread_arg->worker->rightPickUp(iter, Conveyor::components, TYPE_A, pout[iter][1]);
           Conveyor::worker[iter].setStatus(FULL);
 
-          thread_arg->worker->assembleProduct(iter, Conveyor::components, thread_arg->worker);
+          thread_arg->worker->assembleProduct(iter, Conveyor::components, thread_arg->worker, pout[iter]);
         }
         else
         {
@@ -172,6 +178,29 @@ void Conveyor::run() {
     thr[i].worker = &this->worker[i];
     thr[i].sensor = &this->sensor[i];
   }
+  
+
+  for (int i = 0; i < 2 * NUMBER_WORKERS - 1; i++)
+  {
+    /*
+     * Enable GPIO pins
+     */
+    GPIO::GPIOExport(pout[i][0]);
+    GPIO::GPIOExport(pout[i][1]);
+
+    /*
+     * Set GPIO directions
+     */
+    GPIO::GPIODirection(pout[i][0], OUT);
+    GPIO::GPIODirection(pout[i][1], OUT);
+
+    /*
+     * Write GPIO value
+     */
+     GPIO::GPIOWrite(pout[i][0], LOW);
+     GPIO::GPIOWrite(pout[i][1], LOW);
+  }
+
 
   pthread_create(&altid, NULL, alarm, NULL);
   pthread_create(&gentid, NULL, genComponent, components);

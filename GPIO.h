@@ -7,19 +7,18 @@
 #define LOW  0
 #define HIGH 1
 
-static int
-GPIOExport(int pin);
+class GPIO {
 
-static int
-GPIOUnexport(int pin);
+public:
+	static int GPIOExport(int pin);
 
-static int
-GPIODirection(int pin, int dir);
+	static int GPIOUnexport(int pin);
 
-static int
-GPIORead(int pin);
+	static int GPIODirection(int pin, int dir);
 
-static int
-GPIOWrite(int pin, int value);
+	static int GPIORead(int pin);
+
+	static int GPIOWrite(int pin, int value);
+};
 
 #endif
