@@ -95,6 +95,8 @@ void Worker::assembleProduct(int i, TYPE* components, Worker* worker, uint8_t po
 	sleep(ASSEMBLE_TIME);
 	worker->setStatus(PRODUCT);
 	printf("\nWorker %d: Done assemble product\n", i);
+	GPIO::GPIOWrite(pout[0], LOW);
+	GPIO::GPIOWrite(pout[1], LOW);
 
 	sleep(RETURN_TIME);
 	for (int i = 0; i < NUMBER_SLOTS; i++)

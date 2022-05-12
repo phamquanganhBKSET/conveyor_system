@@ -12,9 +12,9 @@ Sensor Conveyor::sensor[NUMBER_WORKERS];
 Worker Conveyor::worker[NUMBER_WORKERS];
 
 uint8_t pout[NUMBER_WORKERS][2] = { // list of pin out
-  {7 , 8 }, // left arm and right arm of the first worker
-  {11, 12}, // left arm and right arm of the second worker
-  {15, 16}
+  {4 , 14}, // left arm and right arm of the first worker
+  {17, 18}, // left arm and right arm of the second worker
+  {22, 23}
 };
 
 typedef struct
