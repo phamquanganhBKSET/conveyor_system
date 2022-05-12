@@ -56,7 +56,7 @@ void Worker::rightPickUp(int i, TYPE* components, TYPE component) {
 	components[i] = BLANK;
 	printf("\nWorker %d: Right arm is picking up component %s\n", i, toString(component).c_str());
 
-	// Trả giá trị cho 1 chân GPIO ở đây báo hiệu cho cánh tay phải gắp
+	// Trả giá trị cho 1 chân GPIO ở đây để báo hiệu cho cánh tay phải gắp
 
 
 
@@ -70,7 +70,7 @@ void Worker::leftPickUp(int i, TYPE* components, Worker* worker, TYPE component)
 	components[i] = BLANK;
 	printf("\nWorker %d: Left arm is picking up component %s\n", i, toString(component).c_str());
 
-	// Trả giá trị cho 1 chân GPIO ở đây báo hiệu cho cánh tay trái gắp
+	// Trả giá trị cho 1 chân GPIO ở đây để báo hiệu cho cánh tay trái gắp
 
 
 
@@ -84,7 +84,7 @@ void Worker::assembleProduct(int i, TYPE* components, Worker* worker) {
 	this->assemble = true;
 	printf("\nWorker %d: Assembling product...\n", i);
 
-	// Trả tín hiệu cho 2 chân GPIO ở đây báo hiệu cho 2 cánh tay lắp sản phẩm
+	// Trả tín hiệu cho 2 chân GPIO ở đây để báo hiệu cho 2 cánh tay lắp sản phẩm
 
 
 

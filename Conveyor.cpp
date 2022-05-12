@@ -36,13 +36,13 @@ Conveyor::Conveyor() {
 }
 
 Conveyor::~Conveyor() {
-
+  
 };
 
 void* Conveyor::genComponent(void* args) {
   TYPE *components = (TYPE*) args;
 
-  for (int i = 0; i < 50; i++)
+  for (int i = 0; i < 60; i++)
   {
     TYPE component = (TYPE)random(0, 2);
     shiftRight(components, NUMBER_SLOTS, component);
@@ -87,17 +87,15 @@ void* Conveyor::genComponent(void* args) {
   pthread_exit(NULL);
 }
 
-void* alarm(void* args) {
-  // Delay ở đây 
-
-
-
-
-  // Kiểm tra alarm ở đây 
-
-
-
-  
+void* Conveyor::alarm(void* args) {
+  do {
+    sleep(60);
+    if (Worker::numberProduct < PERFORMANCE)
+    {
+      cout << "ALARM!!!!!!!!!!!!!!";
+    }
+  } while(Conveyor::stop != true);
+  pthread_exit(NULL);
 }
 
 void* Conveyor::workerRun(void* args) {
@@ -163,8 +161,9 @@ void* Conveyor::workerRun(void* args) {
 
 void Conveyor::run() {
   // Create n threads for n workers
-  pthread_t tid[NUMBER_WORKERS];
+  pthread_t wktid[NUMBER_WORKERS];
   pthread_t gentid;
+  pthread_t altid;
 
   thread_args thr[NUMBER_WORKERS];
 
@@ -174,10 +173,11 @@ void Conveyor::run() {
     thr[i].sensor = &this->sensor[i];
   }
 
+  pthread_create(&altid, NULL, alarm, NULL);
   pthread_create(&gentid, NULL, genComponent, components);
   for (int i = 0; i < NUMBER_WORKERS; i++)
   {
-    int ret = pthread_create(&(tid[i]), NULL, workerRun, (&thr[i]));
+    int ret = pthread_create(&(wktid[i]), NULL, workerRun, (&thr[i]));
     if (ret != 0)
     {
       printf("Thread [%d] created error\n", i);
@@ -185,6 +185,7 @@ void Conveyor::run() {
     }
   }
 
+  pthread_join(altid, NULL);
   pthread_join(gentid, NULL);
   
   for (int i = 0; i < NUMBER_WORKERS; i++)

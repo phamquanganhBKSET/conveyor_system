@@ -25,8 +25,6 @@ public:
 
   static void *workerRun(void* args);
 
-  //void genComponent(Conveyor* conveyor, TYPE* components);
-
   static void* genComponent(void* components);
 
   static void updateSensorData();

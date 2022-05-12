@@ -3,7 +3,7 @@
 
 #define NUMBER_SLOTS     10   // Number of slots on the conveyor
 #define SPEED            1    // Initial speed (speed is number of components that are sent to the conveyor per second)
-#define PERFORMANCE      10   // Number of products that are needed to be assembled per minute
+#define PERFORMANCE      12   // Number of products that are needed to be assembled per minute
 #define ASSEMBLE_TIME    2    // Assemble time (seconds)
 #define PICK_TIME        1    // Pick up time (seconds)
 #define RETURN_TIME      1    // Return product time
