@@ -4,6 +4,7 @@
 #include "GlobalConstant.h"
 #include "Functions.h"
 #include "Sensor.h"
+#include "GPIO.h"
 
 class Worker {
 

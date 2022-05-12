@@ -5,6 +5,7 @@
 #include "Worker.h"
 #include "Sensor.h"
 #include "Functions.h"
+#include "GPIO.h"
 
 class Conveyor {
 private:

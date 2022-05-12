@@ -190,7 +190,7 @@ void Conveyor::run() {
   
   for (int i = 0; i < NUMBER_WORKERS; i++)
   {
-    pthread_join(tid[i], NULL);
+    pthread_join(wktid[i], NULL);
   }
 
 };
